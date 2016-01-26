@@ -13,5 +13,9 @@ public class SLDAInsight
 		slda.getWordCount();
 		slda.readLabels(FNCfg.in1LabelFileName);
 		slda.sample(100);
+		slda.writeModel(FNCfg.in1PhiFileName);
+		slda.writeResult(FNCfg.in1ResultFileName, 20);
+		slda.writeTheta(FNCfg.in1ThetaFileName);
+		slda.writeTopicCounts(FNCfg.in1TopicCountsFileName);
 	}
 }

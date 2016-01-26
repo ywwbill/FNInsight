@@ -1,7 +1,9 @@
 package lda.slda;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -113,8 +115,16 @@ public class LexSLDA extends LDA
 		double score=(alpha[topic]+corpus.get(docIdx).topicCounts[topic])*
 				(param.beta+topics.get(topic).vocabCounts[vocab])/
 				(param.beta*param.numVocab+topics.get(topic).totalTokens);
-		score*=Math.exp(-MathUtil.sqr(labels.get(docIdx)-tempScore-eta[topic]/corpus.get(docIdx).docLength())/
-				(2*param.nu*param.nu));
+//		score*=Math.exp(-MathUtil.sqr(labels.get(docIdx)-tempScore-eta[topic]/corpus.get(docIdx).docLength())/
+//				(2*param.nu*param.nu));
+		if (labels.get(docIdx)==1)
+		{
+			score*=MathUtil.sigmoid(tempScore+eta[topic]/corpus.get(docIdx).docLength());
+		}
+		if (labels.get(docIdx)==0)
+		{
+			score*=1.0-MathUtil.sigmoid(tempScore+eta[topic]/corpus.get(docIdx).docLength());
+		}
 		return score;
 	}
 	
@@ -158,19 +168,31 @@ public class LexSLDA extends LDA
 	public void computeError()
 	{
 		error=0.0;
+		int numVotes=0;
 		for (int doc=0; doc<numDocs; doc++)
 		{
-			double weight=computeWeight(doc);
+			double prob=MathUtil.sigmoid(computeWeight(doc));
 			if (labels.get(doc)==1)
 			{
-				error+=Math.max(0.0, 1.0-weight);
+				error+=1.0-prob;
+				numVotes++;
 			}
-			else
+			if (labels.get(doc)==0)
 			{
-				error+=Math.max(0.0, weight);
+				error+=prob;
+				numVotes++;
 			}
 		}
-		error/=(double)numDocs;
+		error/=(double)numVotes;
+	}
+	
+	public void writeModel(String modelFileName) throws Exception
+	{
+		BufferedWriter bw=new BufferedWriter(new FileWriter(modelFileName));
+		Util.writeMatrix(bw, phi);
+		Util.writeVector(bw, eta);
+		Util.writeVector(bw, tau);
+		bw.close();
 	}
 	
 	public void getNumTestWords()
@@ -213,10 +235,5 @@ public class LexSLDA extends LDA
 		{
 			tau[vocab]=randoms.nextGaussian(0.0, param.nu*param.nu);
 		}
-	}
-	
-	public static void main(String args[]) throws Exception
-	{
-		
 	}
 }

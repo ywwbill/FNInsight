@@ -338,7 +338,14 @@ public class FNPreprocessor
 			}
 			else
 			{
-				bw.write("0");
+				if (line.equals("false"))
+				{
+					bw.write("0");
+				}
+				else
+				{
+					bw.write("-1");
+				}
 			}
 			bw.newLine();
 		}
@@ -391,9 +398,9 @@ public class FNPreprocessor
 //		preprocessor.addBigrams(FNCfg.tempPath+"document-lemmatized", FNCfg.tempPath+"document-bigram", 750);
 //		preprocessor.removeStopWords(FNCfg.tempPath+"document-bigram", FNCfg.tempPath+"document-no-stopwords");
 //		preprocessor.removeLowFreqWords(FNCfg.tempPath+"document-no-stopwords", FNCfg.tempPath+"document-cleaned", 750);
-//		preprocessor.collectPassed(FNCfg.passedFileName, FNCfg.tempPath+"label");
-		preprocessor.removeHighFreqWords(FNCfg.tempPath+"document-cleaned",
-				FNCfg.tempPath+"document-no-high-freq", 14769);
+		preprocessor.collectPassed(FNCfg.passedFileName, FNCfg.tempPath+"label");
+//		preprocessor.removeHighFreqWords(FNCfg.tempPath+"document-cleaned",
+//				FNCfg.tempPath+"document-no-high-freq", 14769);
 		
 		CorpusConvertor convertor=new CorpusConvertor();
 		convertor.collectVocab(FNCfg.tempPath+"document-no-high-freq", FNCfg.tempPath+"vocab");

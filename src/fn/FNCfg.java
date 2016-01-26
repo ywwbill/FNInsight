@@ -12,6 +12,8 @@ public class FNCfg
 	public static String tempPath=dataPath+"temp"+File.separator;
 	public static String itemsPath=dataPath+"items"+File.separator;
 	public static String in1Path=dataPath+"insight1"+File.separator;
+	public static String in2Path=dataPath+"insight2"+File.separator;
+	public static String in3Path=dataPath+"insight3"+File.separator;
 	
 	public static String rawDataFileName=rawPath+"data.json";
 	
@@ -41,4 +43,23 @@ public class FNCfg
 	public static String in1CorpusFileName=in1Path+"document";
 	public static String in1LabelFileName=in1Path+"label";
 	public static String in1VocabFileName=in1Path+"vocab";
+	public static String in1ThetaFileName=in1Path+"theta";
+	public static String in1PhiFileName=in1Path+"phi";
+	public static String in1TopicCountsFileName=in1Path+"topic-counts";
+	public static String in1ResultFileName=in1Path+"results";
+	public static String in1PosTopicFileName=in1Path+"pos-topics";
+	public static String in1NegTopicFileName=in1Path+"neg-topics";
+	public static String in1PosVocabFileName=in1Path+"pos-vocab";
+	public static String in1NegVocabFileName=in1Path+"neg-vocab";
+	
+	public static String in2VoterFileName=in2Path+"voter";
+	public static String in2VoteFileName=in2Path+"vote";
+	public static String in2LabelFileName=in2Path+"label";
+	public static String in2NewLabelFileName=in2Path+"new-label";
+	public static String in2aFileName=in2Path+"a";
+	public static String in2bFileName=in2Path+"b";
+	public static String in2xFileName=in2Path+"x";
+	
+	public static String in3PrimaryFileName=in3Path+"primary";
+	public static String in3WordFileName=in3Path+"word";
 }

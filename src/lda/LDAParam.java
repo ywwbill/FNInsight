@@ -10,7 +10,7 @@ public class LDAParam
 	public double alphaSum=1.0;
 	public double _alphaSum=2.0;
 	public double beta=0.1;
-	public int numTopics=10;
+	public int numTopics=21;
 	
 	public boolean updateAlpha=false;
 	public int showTopicInterval=10;
